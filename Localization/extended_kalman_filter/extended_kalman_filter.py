@@ -10,6 +10,7 @@ import math
 
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.spatial.transform import Rotation as Rot
 
 # Covariance for EKF simulation
 Q = np.diag([
@@ -117,7 +118,7 @@ def jacob_h():
 def ekf_estimation(xEst, PEst, z, u):
     #  Predict
     xPred = motion_model(xEst, u)
-    jF = jacob_f(xPred, u)
+    jF = jacob_f(xEst, u)
     PPred = jF @ PEst @ jF.T + Q
 
     #  Update
@@ -128,7 +129,6 @@ def ekf_estimation(xEst, PEst, z, u):
     K = PPred @ jH.T @ np.linalg.inv(S)
     xEst = xPred + K @ y
     PEst = (np.eye(len(xEst)) - K @ jH) @ PPred
-
     return xEst, PEst
 
 
@@ -148,9 +148,8 @@ def plot_covariance_ellipse(xEst, PEst):  # pragma: no cover
     b = math.sqrt(eigval[smallind])
     x = [a * math.cos(it) for it in t]
     y = [b * math.sin(it) for it in t]
-    angle = math.atan2(eigvec[bigind, 1], eigvec[bigind, 0])
-    rot = np.array([[math.cos(angle), math.sin(angle)],
-                    [-math.sin(angle), math.cos(angle)]])
+    angle = math.atan2(eigvec[1, bigind], eigvec[0, bigind])
+    rot = Rot.from_euler('z', angle).as_matrix()[0:2, 0:2]
     fx = rot @ (np.array([x, y]))
     px = np.array(fx[0, :] + xEst[0, 0]).flatten()
     py = np.array(fx[1, :] + xEst[1, 0]).flatten()

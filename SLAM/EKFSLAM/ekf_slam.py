@@ -29,8 +29,8 @@ show_animation = True
 def ekf_slam(xEst, PEst, u, z):
     # Predict
     S = STATE_SIZE
-    xEst[0:S] = motion_model(xEst[0:S], u)
     G, Fx = jacob_motion(xEst[0:S], u)
+    xEst[0:S] = motion_model(xEst[0:S], u)
     PEst[0:S, 0:S] = G.T @ PEst[0:S, 0:S] @ G + Fx.T @ Cx @ Fx
     initP = np.eye(2)
 
@@ -115,9 +115,9 @@ def jacob_motion(x, u):
     Fx = np.hstack((np.eye(STATE_SIZE), np.zeros(
         (STATE_SIZE, LM_SIZE * calc_n_lm(x)))))
 
-    jF = np.array([[0.0, 0.0, -DT * u[0] * math.sin(x[2, 0])],
-                   [0.0, 0.0, DT * u[0] * math.cos(x[2, 0])],
-                   [0.0, 0.0, 0.0]])
+    jF = np.array([[0.0, 0.0, -DT * u[0, 0] * math.sin(x[2, 0])],
+                   [0.0, 0.0, DT * u[0, 0] * math.cos(x[2, 0])],
+                   [0.0, 0.0, 0.0]], dtype=float)
 
     G = np.eye(STATE_SIZE) + Fx.T @ jF @ Fx
 
@@ -236,8 +236,9 @@ def main():
         if show_animation:  # pragma: no cover
             plt.cla()
             # for stopping simulation with the esc key.
-            plt.gcf().canvas.mpl_connect('key_release_event',
-                    lambda event: [exit(0) if event.key == 'escape' else None])
+            plt.gcf().canvas.mpl_connect(
+                'key_release_event',
+                lambda event: [exit(0) if event.key == 'escape' else None])
 
             plt.plot(RFID[:, 0], RFID[:, 1], "*k")
             plt.plot(xEst[0], xEst[1], ".r")

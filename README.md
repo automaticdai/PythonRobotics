@@ -1,14 +1,15 @@
 <img src="https://github.com/AtsushiSakai/PythonRobotics/raw/master/icon.png?raw=true" align="right" width="300" alt="header pic"/>
 
 # PythonRobotics
+![GitHub_Action_Linux_CI](https://github.com/AtsushiSakai/PythonRobotics/workflows/Linux_CI/badge.svg)
+![GitHub_Action_MacOS_CI](https://github.com/AtsushiSakai/PythonRobotics/workflows/MacOS_CI/badge.svg)
 [![Build Status](https://travis-ci.org/AtsushiSakai/PythonRobotics.svg?branch=master)](https://travis-ci.org/AtsushiSakai/PythonRobotics)
 [![Documentation Status](https://readthedocs.org/projects/pythonrobotics/badge/?version=latest)](https://pythonrobotics.readthedocs.io/en/latest/?badge=latest)
 [![Build status](https://ci.appveyor.com/api/projects/status/sb279kxuv1be391g?svg=true)](https://ci.appveyor.com/project/AtsushiSakai/pythonrobotics)
-[![Coverage Status](https://coveralls.io/repos/github/AtsushiSakai/PythonRobotics/badge.svg?branch=master)](https://coveralls.io/github/AtsushiSakai/PythonRobotics?branch=master)
+[![codecov](https://codecov.io/gh/AtsushiSakai/PythonRobotics/branch/master/graph/badge.svg)](https://codecov.io/gh/AtsushiSakai/PythonRobotics)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/AtsushiSakai/PythonRobotics.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/AtsushiSakai/PythonRobotics/context:python)
 [![CodeFactor](https://www.codefactor.io/repository/github/atsushisakai/pythonrobotics/badge/master)](https://www.codefactor.io/repository/github/atsushisakai/pythonrobotics/overview/master)
 [![tokei](https://tokei.rs/b1/github/AtsushiSakai/PythonRobotics)](https://github.com/AtsushiSakai/PythonRobotics)
-[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/AtsushiSakai)
 
 Python codes for robotics algorithm.
 
@@ -70,11 +71,13 @@ Python codes for robotics algorithm.
    * [Contribution](#contribution)
    * [Citing](#citing)
    * [Support](#support)
+   * [Sponsors](#Sponsors)
+      * [JetBrains](#JetBrains)
    * [Authors](#authors)
 
 # What is this?
 
-This is a Python code collection of robotics algorithms, especially for autonomous navigation.
+This is a Python code collection of robotics algorithms.
 
 Features:
 
@@ -91,7 +94,9 @@ See this paper for more details:
 
 # Requirements
 
-- Python 3.7.x (2.7 is not supported)
+For running each sample code:
+
+- Python 3.9.x
 
 - numpy
 
@@ -102,6 +107,18 @@ See this paper for more details:
 - pandas
 
 - [cvxpy](https://www.cvxpy.org/index.html) 
+
+For development:
+  
+- pytest (for unit tests)
+  
+- pytest-xdist (for parallel unit tests)
+  
+- mypy (for type check)
+  
+- Sphinx (for document generation)
+  
+- pycodestyle (for code style check)
 
 # Documentation
 
@@ -119,12 +136,16 @@ All animation gifs are stored here: [AtsushiSakai/PythonRoboticsGifs: Animation 
 
 > git clone https://github.com/AtsushiSakai/PythonRobotics.git
 
-> cd PythonRobotics/
 
+2. Install the required libraries.
 
-2. Install the required libraries. You can use environment.yml with conda command.
+using conda :
 
 > conda env create -f environment.yml
+ 
+using pip :
+
+> pip install -r requirements.txt
 
 
 3. Execute python script in each directory.
@@ -147,11 +168,11 @@ This is a sensor fusion localization with Particle Filter(PF).
 
 The blue line is true trajectory, the black line is dead reckoning trajectory,
 
-and the red line is estimated trajectory with PF.
+and the red line is an estimated trajectory with PF.
 
 It is assumed that the robot can measure a distance from landmarks (RFID).
 
-This measurements are used for PF localization.
+These measurements are used for PF localization.
 
 Ref:
 
@@ -219,7 +240,7 @@ Simultaneous Localization and Mapping(SLAM) examples
 
 This is a 2D ICP matching example with singular value decomposition.
 
-It can calculate a rotation matrix and a translation vector between points to points.
+It can calculate a rotation matrix, and a translation vector between points and points.
 
 ![3](https://github.com/AtsushiSakai/PythonRoboticsGifs/raw/master/SLAM/iterative_closest_point/animation.gif)
 
@@ -264,7 +285,7 @@ This is a 2D navigation sample code with Dynamic Window Approach.
 
 ### Dijkstra algorithm
 
-This is a 2D grid based shortest path planning with Dijkstra's algorithm.
+This is a 2D grid based the shortest path planning with Dijkstra's algorithm.
 
 ![PythonRobotics/figure_1.png at master · AtsushiSakai/PythonRobotics](https://github.com/AtsushiSakai/PythonRoboticsGifs/raw/master/PathPlanning/Dijkstra/animation.gif)
 
@@ -272,7 +293,7 @@ In the animation, cyan points are searched nodes.
 
 ### A\* algorithm
 
-This is a 2D grid based shortest path planning with A star algorithm.
+This is a 2D grid based the shortest path planning with A star algorithm.
 
 ![PythonRobotics/figure_1.png at master · AtsushiSakai/PythonRobotics](https://github.com/AtsushiSakai/PythonRoboticsGifs/raw/master/PathPlanning/AStar/animation.gif)
 
@@ -366,7 +387,7 @@ This is a path planning simulation with LQR-RRT\*.
 
 A double integrator motion model is used for LQR local planner.
 
-![LQRRRT](https://github.com/AtsushiSakai/PythonRoboticsGifs/raw/master/PathPlanning/LQRRRTStar/animation.gif)
+![LQR_RRT](https://github.com/AtsushiSakai/PythonRoboticsGifs/raw/master/PathPlanning/LQRRRTStar/animation.gif)
 
 Ref:
 
@@ -381,7 +402,7 @@ Motion planning with quintic polynomials.
 
 ![2](https://github.com/AtsushiSakai/PythonRoboticsGifs/raw/master/PathPlanning/QuinticPolynomialsPlanner/animation.gif)
 
-It can calculate 2D path, velocity, and acceleration profile based on quintic polynomials.
+It can calculate a 2D path, velocity, and acceleration profile based on quintic polynomials.
 
 Ref:
 
@@ -417,7 +438,7 @@ This is optimal trajectory generation in a Frenet Frame.
 
 The cyan line is the target course and black crosses are obstacles.
 
-The red line is predicted path.
+The red line is the predicted path.
 
 Ref:
 
@@ -504,9 +525,9 @@ Ref:
 
 N joint arm to a point control simulation.
 
-This is a interactive simulation.
+This is an interactive simulation.
 
-You can set the goal position of the end effector with left-click on the ploting area. 
+You can set the goal position of the end effector with left-click on the plotting area. 
 
 ![3](https://github.com/AtsushiSakai/PythonRoboticsGifs/raw/master/ArmNavigation/n_joint_arm_to_point_control/animation.gif)
 
@@ -541,9 +562,9 @@ Ref:
 
 ## bipedal planner with inverted pendulum
 
-This is a bipedal planner for modifying footsteps with inverted pendulum.
+This is a bipedal planner for modifying footsteps for an inverted pendulum.
 
-You can set the footsteps and the planner will modify those automatically.
+You can set the footsteps, and the planner will modify those automatically.
 
 ![3](https://github.com/AtsushiSakai/PythonRoboticsGifs/raw/master/Bipedal/bipedal_planner/animation.gif)
 
@@ -553,7 +574,7 @@ MIT
 
 # Use-case
 
-If this project helps your robotics project, please let me know with [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/AtsushiSakai).
+If this project helps your robotics project, please let me know with creating an issue.
 
 Your robot's video, which is using PythonRobotics, is very welcome!!
 
@@ -561,9 +582,7 @@ This is a list of other user's comment and references:[users\_comments](https://
 
 # Contribution
 
-A small PR like bug fix is welcome.
-
-If your PR is merged multiple times, I will add your account to the author list.
+Any contribution is welcome!!
 
 # Citing
 
@@ -575,38 +594,21 @@ If you use this project's code in industry, we'd love to hear from you as well; 
 
 If you or your company would like to support this project, please consider:
 
+- [Sponsor @AtsushiSakai on GitHub Sponsors](https://github.com/sponsors/AtsushiSakai)
+
 - [Become a backer or sponsor on Patreon](https://www.patreon.com/myenigma)
 
 - [One-time donation via PayPal](https://www.paypal.me/myenigmapay/)
 
-You can add your name or your company logo in README if you are a patron.
+If you would like to support us in some other way, please contact with creating an issue.
 
-E-mail consultant is also available.
+# Sponsors
 
- 　
+## [JetBrains](https://www.jetbrains.com/)
 
-Your comment using [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/AtsushiSakai) is also welcome. 
-
-This is a list: [Users comments](https://github.com/AtsushiSakai/PythonRobotics/blob/master/users_comments.md)
+They are providing a free license of their IDEs for this OSS development.   
 
 # Authors
 
-- [Atsushi Sakai](https://github.com/AtsushiSakai/) ([@Atsushi_twi](https://twitter.com/Atsushi_twi))
-
-- [Daniel Ingram](https://github.com/daniel-s-ingram)
-
-- [Joe Dinius](https://github.com/jwdinius)
-
-- [Karan Chawla](https://github.com/karanchawla)
-
-- [Antonin RAFFIN](https://github.com/araffin)
-
-- [Alexis Paques](https://github.com/AlexisTM)
-
-- [Ryohei Sasaki](https://github.com/rsasaki0109)
-
-- [Göktuğ Karakaşlı](https://github.com/goktug97)
-
-- [Guillaume Jacquenot](https://github.com/Gjacquenot)
-
+- [Contributors to AtsushiSakai/PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics/graphs/contributors)
 

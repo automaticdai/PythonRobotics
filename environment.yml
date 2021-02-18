@@ -2,10 +2,8 @@ name: python_robotics
 dependencies:
 - python
 - pip
-- matplotlib
 - scipy
-- numpy==1.15
+- numpy
 - pandas
-- coverage
-- pip:
-    - cvxpy
+- cvxpy
+- matplotlib
